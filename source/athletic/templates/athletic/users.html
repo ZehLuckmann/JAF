@@ -1,0 +1,43 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>Membros</h1>
+    <h2>{{athletic.initials}}</h2><hr>
+    
+    <div style="clear:both;"></div><br>
+    <table class="table table-striped" style="width: 100%;">
+        <thead class="table-dark">
+            <td scope="col">Nome</td>
+            <td scope="col">Sobrenome</td>
+            <td scope="col">Membro</td>
+            <td scope="col">Diretoria</td>
+            <td scope="col">Ações</td>
+        </thead>
+        <tbody>
+            {% for a in users %}
+            <tr scope="row">
+                <td>{{a.first_name}}</td>
+                <td>{{a.last_name}}</td>
+                <td>{{a.is_member}}</td>
+                <td>{{a.is_board}}</td>
+                <td>
+                  <a href="">Detalhes</a>
+                  {% if a.is_member %}
+                    <a href="{% url 'athletic:disapprove' a.id %}">Reprovar</a>
+                    {% if request.user.is_admin %}
+                      <a href="{% url 'athletic:promove' a.id %}">Promover</i></a>
+                    {% endif %}     
+                  {% else %}
+                    <a href="{% url 'athletic:approve' a.id %}">Aprovar</a>
+                  {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

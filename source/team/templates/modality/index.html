@@ -1,0 +1,35 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>Lista de Modalidades</h1><hr>
+    {% if request.user.is_admin %}
+    <a href="{% url 'team:modality_add' %}">Nova Modalidade</a>
+    {% endif %}
+    <div style="clear:both;"></div><br>
+    <table class="table table-striped" style="width: 100%;">
+        <thead class="table-dark">
+            <td scope="col">Nome</td>
+            <td scope="col">Gênero</td>
+            <td scope="col">Ações</td>
+        </thead>
+        <tbody>
+            {% for a in modality %}
+            <tr>
+                <td>{{a.name}}</td>
+                <td>{{a.genre}}</td>
+                <td>
+                {% if request.user.is_admin %}
+                  <a href="{% url 'team:modality_edit' a.id %}">Editar</a>
+                  <a href="{% url 'team:modality_delete' a.id %}">Deletar</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

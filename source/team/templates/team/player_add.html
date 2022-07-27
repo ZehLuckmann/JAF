@@ -1,0 +1,58 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <h4>Adicionar jogadores</h4>
+    </div>
+    <div class="row">
+    <div class="col">
+        <h5>{{ team.modality }}</h5>
+
+        <table class="table" style="width: 100%;">
+            <thead class="table-dark">
+                <td>Nome</td>
+                <td>Sobrenome</td>
+                <td>Federado</td>
+                <td>Ações</td>
+            </thead>
+            <tbody>
+                {% for a in team.players.all %}
+                <tr>
+                    <td>{{a.first_name}}</td>
+                    <td>{{a.last_name}}</td>
+                    <td>{{a.is_federated}}</td>
+                    <td><a href="{% url 'team:player_delete' team.id a.id%}">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h5>Disponíveis</h5>
+
+        <table class="table" style="width: 100%;">
+            <thead class="table-dark">
+                <td>Nome</td>
+                <td>Sobrenome</td>
+                <td>Federado</td>
+                <td>Ações</td>
+            </thead>
+            <tbody>
+                {% for a in users %}
+                    <tr>
+                        <td>{{a.first_name}}</td>
+                        <td>{{a.last_name}}</td>
+                        <td>{{a.is_federated}}</td> 
+                        <td><a href="{% url 'team:player_add' team.id a.id %}">Add</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="card-body">
+    <h5>Novo Campeonato</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+</div>
+
+{% endblock %}

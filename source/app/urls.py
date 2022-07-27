@@ -14,6 +14,9 @@ urlpatterns = [
     path('language/', ChangeLanguageView.as_view(), name='change_language'),
 
     path('accounts/', include('accounts.urls')),
+    path('athletic/', include('athletic.urls')),
+    path('team/', include('team.urls')),
+    path('tournament/', include('tournament.urls')),
 ]
 
 if settings.DEBUG:

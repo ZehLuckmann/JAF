@@ -30,6 +30,9 @@ from .forms import (
 from .models import Activation
 
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 class GuestOnlyView(View):
     def dispatch(self, request, *args, **kwargs):
         # Redirect to the index page if the user already authenticated
@@ -213,12 +216,40 @@ class ChangeProfileView(LoginRequiredMixin, FormView):
         initial = super().get_initial()
         initial['first_name'] = user.first_name
         initial['last_name'] = user.last_name
+
+        initial['athletic'] = user.athletic
+
+        initial['furb_id'] = user.furb_id
+        initial['rg'] = user.rg
+        initial['cpf'] = user.cpf
+
+        initial['is_teacher'] = user.is_teacher
+        initial['is_federated'] = user.is_federated
+        initial['is_graduated'] = user.is_graduated
+
+        initial['avatar'] = user.avatar
+        initial['certificate'] = user.certificate
+
         return initial
 
     def form_valid(self, form):
         user = self.request.user
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
+
+        user.athletic = form.cleaned_data['athletic']
+
+        user.furb_id = form.cleaned_data['furb_id']
+        user.rg = form.cleaned_data['rg']
+        user.cpf = form.cleaned_data['cpf']
+
+        user.is_teacher = form.cleaned_data['is_teacher']
+        user.is_federated = form.cleaned_data['is_federated']
+        user.is_graduated = form.cleaned_data['is_graduated']
+        
+        user.avatar = form.cleaned_data['avatar']
+        user.certificate = form.cleaned_data['certificate']
+
         user.save()
 
         messages.success(self.request, _('Profile data has been successfully updated.'))

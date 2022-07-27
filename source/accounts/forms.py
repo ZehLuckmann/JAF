@@ -10,6 +10,11 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 
+from athletic.models import Athletic
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class UserCacheMixin:
     user_cache = None
 
@@ -213,8 +218,23 @@ class RestorePasswordViaEmailOrUsernameForm(UserCacheMixin, forms.Form):
 
 
 class ChangeProfileForm(forms.Form):
+
+    avatar = forms.ImageField(required=False)
+    athletic = forms.ModelChoiceField(Athletic.objects.all(), required=False)
+
     first_name = forms.CharField(label=_('First name'), max_length=30, required=False)
     last_name = forms.CharField(label=_('Last name'), max_length=150, required=False)
+
+    furb_id = forms.CharField(label=_('Código Pessoa (FURB)'), max_length=150, required=False)
+    rg = forms.CharField(label=_('RG'), max_length=150, required=False)
+    cpf = forms.CharField(label=_('CPF'), max_length=150, required=False)
+    
+    is_federated = forms.BooleanField(label=_('Federado'), required=False)
+    is_teacher = forms.BooleanField(label=_('Professor'), required=False)
+    is_graduated = forms.BooleanField(label=_('Formado'), required=False)
+
+    certificate = forms.FileField(required=False)
+
 
 
 class ChangeEmailForm(forms.Form):

@@ -7,7 +7,6 @@ warnings.simplefilter('error', DeprecationWarning)
 
 BASE_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
-
 SECRET_KEY = 'NhfTvayqggTBPswCXXhWaN69HuglgZIkM'
 
 DEBUG = True
@@ -30,7 +29,12 @@ INSTALLED_APPS = [
     # Application apps
     'main',
     'accounts',
+    'athletic',
+    'team',
+    'tournament',
 ]
+
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,23 +81,14 @@ DATABASES = {
     }
 }
 
+
+
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+
 ]
 
-ENABLE_USER_ACTIVATION = True
-DISABLE_USERNAME = False
+ENABLE_USER_ACTIVATION = False
+DISABLE_USERNAME = True
 LOGIN_VIA_EMAIL = True
 LOGIN_VIA_EMAIL_OR_USERNAME = False
 LOGIN_REDIRECT_URL = 'index'
@@ -101,7 +96,7 @@ LOGIN_URL = 'accounts:log_in'
 USE_REMEMBER_ME = True
 
 RESTORE_PASSWORD_VIA_EMAIL_OR_USERNAME = False
-ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = True
+ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = False
 
 SIGN_UP_FIELDS = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 if DISABLE_USERNAME:
@@ -111,9 +106,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 USE_I18N = True
 USE_L10N = True
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'pt-br'
 LANGUAGES = [
     ('en', _('English')),
+    ('pt-br', _('Portugês')),
     ('ru', _('Russian')),
     ('zh-Hans', _('Simplified Chinese')),
     ('fr', _('French')),

@@ -1,0 +1,38 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>Lista de Atléticas</h1><hr>
+    {% if request.user.is_admin %}
+    <a href="{% url 'athletic:add' %}">Nova Atlética</a>
+    {% endif %}
+    <div style="clear:both;"></div><br>
+    <table class="table table-striped" style="width: 100%;">
+        <thead class="table-dark">
+            <td></td>
+            <td scope="col-md-4">Sigla</td>
+            <td scope="col-md-8">Nome</td>
+            <td scope="col-md-1">Ações</td>
+        </thead>
+        <tbody>
+            {% for a in athletic %}
+            <tr scope="row">
+                <td></td>
+                <td>{{a.initials}}</td>
+                <td>{{a.name}}</td>
+                <td>
+                    <a href="{% url 'athletic:users' a.id %}"><i class="fa-regular fa-user"></i></a>
+                    {% if request.user.is_admin %}
+                      <a href="{% url 'athletic:edit' a.id %}"><i class="fa-regular fa-pen-to-square" style="color:green"></i></a>
+                      <a href="{% url 'athletic:delete' a.id %}"><i class="fa-regular fa-trash-can" style="color:red"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>Times</h1><hr>
+    {% if request.user.is_board %}
+      <a href="{% url 'team:add' %}">Novo Time</a>
+    {% endif %}
+    <div style="clear:both;"></div><br>
+    <table class="table table-striped" style="width: 100%;">
+        <thead class="table-dark">
+            <td scope="col">Atlética</td>
+            <td scope="col">Modalidade</td>
+            <td scope="col">Ações</td>
+        </thead>
+        <tbody>
+            {% for a in team %}
+            <tr>
+                <td>{{a.athletic}}</td>
+                <td>{{a.modality}}</td>
+                <td>
+                {% if request.user.is_board %}
+                  <a href="{% url 'team:player' a.id %}">Add Jogadores</a>
+                  <a href="{% url 'team:edit' a.id %}">Editar</a>
+                  <a href="{% url 'team:delete' a.id %}">Deletar</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

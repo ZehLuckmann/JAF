@@ -81,21 +81,10 @@ DATABASES = {
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+   
 ]
 
-ENABLE_USER_ACTIVATION = True
+ENABLE_USER_ACTIVATION = False
 DISABLE_USERNAME = False
 LOGIN_VIA_EMAIL = False
 LOGIN_VIA_EMAIL_OR_USERNAME = True
@@ -110,9 +99,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 USE_I18N = True
 USE_L10N = True
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'pt-br'
 LANGUAGES = [
     ('en', _('English')),
+    ('pt-br', _('Portugês')),
     ('ru', _('Russian')),
     ('zh-Hans', _('Simplified Chinese')),
     ('fr', _('French')),

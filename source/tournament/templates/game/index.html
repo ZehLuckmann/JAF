@@ -1,0 +1,41 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>Lista de Jogos</h1><hr>
+    {% if request.user.is_admin %}
+      <a href="{% url 'tournament:game_add' %}">Novo Jogo</a>
+    {% endif %}
+    <div style="clear:both;"></div><br>
+    <table class="table table-striped" style="width: 100%;">
+        <thead class="table-dark">
+            <td scope="col">Campeonato</td>
+            <td scope="col">Modalidade</td>
+            <td scope="col">Time 1</td>
+            <td scope="col">Time 2</td>
+            <td scope="col">Data e Hora</td>
+            <td scope="col" >Ações</td>
+        </thead>
+        <tbody>
+            {% for a in game %}
+            <tr scope="row">
+                <td>{{a.tournament}}</td>
+                <td>{{a.modality}}</td>
+                <td>{{a.team_1}}</td>
+                <td>{{a.team_2}}</td>
+                <td>{{a.date_time}}</td>
+                <td>
+                {% if request.user.is_admin %}
+                  <a href="{% url 'tournament:game_edit' a.id %}">Editar</a>
+                  <a href="{% url 'tournament:game_delete' a.id %}">Deletar</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
